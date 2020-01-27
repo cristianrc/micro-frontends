@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+  <title>Micro Frontends</title>
+  <link href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" rel="stylesheet" />
+  <style>
+    .navbar {
+      box-shadow: 0 0.125em 0.25em rgba(10,10,10,.1);
+      margin-bottom: 20px;
+    }
+    .logo {
+      height: 200px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body onload="tellComponents()">
+  <nav class="navbar has-background-white-ter" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item">
+        <strong>Ejemplo de Micro-frontends V0.1</strong>
+      </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  </nav>
+  <div class="container">
+
+    <div class="columns">
+      <div class="column">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              Angular
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <div class="card-body" id="ng-container"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              Mensajes
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <div id="messages"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              React
+            </p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <div class="card-body" id="react-container"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function tellComponents() {
+      const reactEl = document.createElement('react-el');
+      reactEl.setAttribute('onHelloEvt', 'onHelloEvt');
+      reactEl.addEventListener('onHelloEvt', (e) => logMessage('React', 'Hola Angular!'));
+
+      const reactElContainer =  document.getElementById('react-container')
+      if (reactElContainer.children.length > 0) {
+        reactElContainer.removeChild(reactElContainer.children[0]);
+      }
+      reactElContainer.appendChild(reactEl);
+
+      const ngEl = document.createElement('ng-el');
+      ngEl.addEventListener('helloEvt', (e) => logMessage('Angular', 'Hola React!'));
+
+
+      const ngElContainer =  document.getElementById('ng-container')
+      if (ngElContainer.children.length > 0) {
+        ngElContainer.removeChild(ngElContainer.children[0]);
+      }
+      ngElContainer.appendChild(ngEl);
+
+    }
+
+    function logMessage(source, msg) {
+      const msgContainer = document.getElementById('messages');
+      let className = (source == 'Angular')? 'has-text-danger' : 'has-text-primary';
+      msgContainer.innerHTML += `<p><strong>${source}:</strong> <span><strong class="${className}">${msg}</strong></span>`;
+    }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/zone.js/0.9.1/zone.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.2.10/custom-elements-es5-adapter.js"></script>
+  <script src="http://localhost:5001/main.js"></script>
+  <script src="http://localhost:5002/main.js"></script>
+</body>
+</html>
