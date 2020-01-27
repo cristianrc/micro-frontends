@@ -1,6 +1,6 @@
 # Micro-frontends con Web Components
 
-Ejemplo de Micro-frontends con Web Components, se desactivo el Shadow DOM para compartir el mismo framework CSS y facilitar la comunicación con el DOM, entiéndase que para un proyecto con cierto grado de complejidad no se recomienda desactivarlo, además deberás elaborar una capa de comunicación y navegación.
+Ejemplo de Micro-frontends con Web Components, se desactivo el Shadow DOM para compartir el mismo framework CSS y facilitar la comunicación con el DOM, entiéndase que para un proyecto con cierto grado de complejidad no se recomienda desactivarlo, además deberás elaborar una capa de comunicación, orquestar la navegación, usar un repositorio para cada micro frontend y algunos detalles mas.
 
 
 ## Build and serve Micro Frontend Base
